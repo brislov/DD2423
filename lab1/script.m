@@ -102,7 +102,7 @@ clear
 % end 
 
 
-% Question 12
+% Question 13
 % a = 10^-10;
 % 
 % i = 0;
@@ -128,5 +128,38 @@ clear
 
 
 % 2 Gaussian convolution implemented via FFT
+% img = phonecalc128;
+% subplot(121)
+% showgrey(img)
+% subplot(122)
+% x = gaussfft(img,2);
+% showgrey(x)
+
+% psf = gaussfft(deltafcn(128,128),t);
+% variance(psf)
+
+for t = [0.1 0.3 1.0 10.0 100.0]
+    psf = gaussfft(deltafcn(128,128),t);
+    t
+    variance(psf)
+    sprintf('----------')
+end
 
 
+
+% 3 Smoothing
+
+% Questions 17-18
+% office = office256;
+% 
+% add = gaussnoise(office,16);
+% sap = sapnoise(office,0.1,255);
+% 
+% subplot(131)
+% showgrey(office)
+% subplot(132)
+% showgrey(add)
+% subplot(133)
+% showgrey(sap)
+
+% Questions 19-20

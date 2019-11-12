@@ -1,30 +1,16 @@
-function re = gaussfft(pic,t)
-   
-% t - variance
+function pixels = gaussfft(pic,t)
+ 
+% Discretization of the Gaussian function in the spatial domain
+[xsize, ysize] = size(pic);
+[x, y] = meshgrid(-xsize/2 : xsize/2-1, -ysize/2 : ysize/2-1);
 
-f = pic;
+G = 1/(2*pi*t)*exp(-(x.^2+y.^2)/(2*t));
 
-[usize, vsize] = size(pic);
+% Apply Fourier transform on both G and F(=pic) to perform pointwise
+% multiplication in the Fourier domain to apply the Gaussian filter
+Fhat = fft2(pic);
+Ghat = fft2(G);
 
-umax = usize/2;
-vmax = vsize/2;
-[u, v] = meshgrid(umax-usize:umax-1,vmax-vsize:vmax-1);
+Hhat = Fhat.*Ghat; 
 
-for x = 1:usize
-    for y = 1:vsize
-        u(x,y) = 1/(2*pi*t)*exp(-(x^2+y^2)/(2*t));
-        v(x,y) = 1/(2*pi*t)*exp(-(x^2+y^2)/(2*t));
-    end
-end
-
-g = u+v;
-
-fhat = fft2(f);
-ghat = fft2(g);
-
-hhat = fhat.*ghat;
-
-re = ifft2(hhat);
-end 
-
-
+pixels = fftshift(ifft2(Hhat));

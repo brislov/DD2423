@@ -252,7 +252,7 @@ clear
 % Questions 19-20
 % img = phonecalc256;
 % smoothimggauss = img;
-% smoothimgideal = img;
+% smoothimgideal = img;§
 % N=5;
 % for i=1:N
 %     figure(1)

@@ -1,17 +1,16 @@
 clear
 
 
-% 1 Difference operators
-
 % Sobel operator along x and y
-% deltax = [-1 0 1; -2 0 2; -1 0 1];
-% deltay = [-1 -2 -1; 0 0 0; 1 2 1];
-% 
-tools = few256;
-% dxtools = conv2(tools, deltax, 'valid');
-% dytools = conv2(tools, deltay, 'valid');
+deltax = [-1 0 1; -2 0 2; -1 0 1];
+deltay = [-1 -2 -1; 0 0 0; 1 2 1];
 
-% q1 start
+tools = few256;
+dxtools = conv2(tools, deltax, 'valid');
+dytools = conv2(tools, deltay, 'valid');
+
+
+% Question 1
 % figure(1)
 % showgrey(tools)
 % title('tools')
@@ -27,12 +26,9 @@ tools = few256;
 % size(tools)
 % size(dxtools)
 % size(dytools)
-% q1 end
 
 
-% 2 Point-wise thresholding of gradient magnitudes
-
-% q2-3 part 1
+% Questions 2-3, part 1
 % gradmagntools = sqrt(dxtools.^2 + dytools.^2);
 % 
 % figure(1)
@@ -51,7 +47,7 @@ tools = few256;
 %     title(sprintf('t = %i', thresholds(i)))
 % end
 
-% q2-3 part 2
+% Questions 2-3, part 2 
 % img = godthem256;
 % imgblur = discgaussfft(img, 1);
 % 
@@ -90,49 +86,60 @@ tools = few256;
 %     title(sprintf('t = %i', thresholds(i)))
 % end
 
-% ???
+
+% Test masks on reference data
 % [x, y] = meshgrid(-5:5, -5:5);
 % 
-% Dx = [-1/2 0 1/2];
-% Dy = [-1/2; 0; 1/2];
+% Dx = zeros(5);
+% Dy = zeros(5);
+% Dx(3, 2:4) = [-1/2 0 1/2];
+% Dy(2:4, 3) = [-1/2; 0; 1/2];
 % 
-% Dxx = [1 -2 1];
-% Dxy = filter2(Dx, Dy, 'same');
-% Dyy = [1; -2; 1];
+% Dxx = zeros(5);
+% Dyy = zeros(5);
+% Dxx(3, 2:4) = [1 -2 1];
+% Dxy = filter2(Dx, Dy, 'valid');
+% Dyy(2:4, 3) = [1; -2; 1];
 % 
-% Dxxx = filter2(Dx, Dxx, 'same');
-% Dxxy = filter2(Dxx, Dy, 'same');
+% Dxxx = filter2(Dx, Dxx, 'valid');
+% Dxxy = filter2(Dxx, Dy, 'valid');
 % 
 % filter2(Dxxx, x.^3, 'valid')
 % filter2(Dxx, x.^3, 'valid')
 % filter2(Dxxy, x.^2.*y, 'valid')
 
-house = godthem256;
 
-figure(1)
-scales = [0.0001 1.0 4.0 16.0 64.0];
-for i = 1 : length(scales)
-    subplot(2, 3, i)
-    contour(Lvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
-    axis('image')
-    axis('ij')
-    title(sprintf('scale = %f', scales(i)))
-end 
+% Questions 4-6
+% house = godthem256;
+% tools = few256;
+% 
+% figure(1)
+% scales = [0.0001 1.0 4.0 16.0 64.0];
+% for i = 1 : length(scales)
+%     subplot(2, 3, i)
+%     contour(Lvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
+%     axis('image')
+%     axis('ij')
+%     title(sprintf('scale = %.4f', scales(i)))
+% end 
+% 
+% figure(2)
+% for i = 1 : length(scales)
+%     subplot(2, 3, i)
+%     contour(Lvvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
+%     axis('image')
+%     axis('ij')
+%     title(sprintf('scale = %.4f', scales(i)))
+% end 
+% 
+% figure(3)
+% for i = 1 : length(scales)
+%     subplot(2, 3, i)
+%     showgrey(Lvvvtilde(discgaussfft(tools, scales(i)), 'same') < 0)
+%     axis('image')
+%     axis('ij')
+%     title(sprintf('scale = %.4f', scales(i)))
+% end
 
-figure(2)
-for i = 1 : length(scales)
-    subplot(2, 3, i)
-    contour(Lvvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
-    axis('image')
-    axis('ij')
-    title(sprintf('scale = %f', scales(i)))
-end 
 
-figure(3)
-for i = 1 : length(scales)
-    subplot(2, 3, i)
-    showgrey(Lvvvtilde(discgaussfft(tools, scales(i)), 'same') < 0)
-    axis('image')
-    axis('ij')
-    title(sprintf('scale = %f', scales(i)))
-end 
+

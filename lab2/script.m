@@ -170,12 +170,22 @@ dytools = conv2(tools, deltay, 'valid');
 
 
 % Questions 8-9
-testimage1 = triangle(128);
-smalltest1 = binsubs(testimage1);
+testimage1 = triangle128;
+smalltest1 = binsubsample(testimage1);
 
 testimage2 = houghtest256;
 smalltest2 = binsubsample(binsubsample(testimage2));
 
-showgrey(testimage1)
-houghline(testimage,  
+pic = smalltest1;
+scale = 1;
+gradmagnthreshold = 1;
+nrho = 6;
+ntheta = 16;
+nlines = 0;
+verbose = 0;
+[linepar, acc] = houghedgeline(pic, scale, gradmagnthreshold, nrho, ...
+                               ntheta, nlines, verbose);
+
+linepar
+acc
 

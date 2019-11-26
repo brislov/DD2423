@@ -1,9 +1,11 @@
 function edgecurves = extractedge(inpic, scale, threshold, shape)
 
-Lv1 = Lv(discgaussfft(inpic, scale), shape);
-Lvv = Lvvtilde(discgaussfft(inpic, scale), shape);
-Lvvv = Lvvvtilde(discgaussfft(inpic, scale), shape);
+pic = discgaussfft(inpic, scale);
 
+Lv1 = Lv(pic, shape);
+Lvv = Lvvtilde(pic, shape);
+Lvvv = Lvvvtilde(pic, shape);
+ 
 Lv_mask = (Lv1 > threshold) - 0.5;
 Lvvv_mask = (Lvvv < 0) - 0.5;
 

@@ -5,12 +5,12 @@ tools = few256;
 house = godthem256;
 
 
-% Sobel operator along x and y
-deltax = [-1 0 1; -2 0 2; -1 0 1];
-deltay = [-1 -2 -1; 0 0 0; 1 2 1];
-
-dxtools = conv2(tools, deltax, 'valid');
-dytools = conv2(tools, deltay, 'valid');
+% % Sobel operator along x and y
+% deltax = [-1 0 1; -2 0 2; -1 0 1];
+% deltay = [-1 -2 -1; 0 0 0; 1 2 1];
+% 
+% dxtools = conv2(tools, deltax, 'valid');
+% dytools = conv2(tools, deltay, 'valid');
 
 
 % Question 1
@@ -170,22 +170,29 @@ dytools = conv2(tools, deltay, 'valid');
 
 
 % Questions 8-9
-testimage1 = triangle128;
-smalltest1 = binsubsample(testimage1);
 
-testimage2 = houghtest256;
-smalltest2 = binsubsample(binsubsample(testimage2));
+% img = houghtest256;
+% scale = 1;
+% threshold = 100;
+% nlines = 7;
 
-pic = smalltest1;
-scale = 1;
-gradmagnthreshold = 1;
-nrho = 6;
-ntheta = 16;
-nlines = 0;
+img = few256;
+scale = 16;
+threshold = 100;
+nlines = 10;
+
+% img = phonecalc256;
+% scale = 16;
+% threshold = 2*10^3;
+% nlines = 20;
+
+% img = godthem256;
+% scale = 4;
+% threshold = 2*10^3;
+% nlines = 30;
+
+nrho = 270;
+ntheta = 180;
 verbose = 0;
-[linepar, acc] = houghedgeline(pic, scale, gradmagnthreshold, nrho, ...
-                               ntheta, nlines, verbose);
 
-linepar
-acc
-
+[linepar, acc] = houghedgeline(img, scale, threshold, nrho, ntheta, nlines, verbose);

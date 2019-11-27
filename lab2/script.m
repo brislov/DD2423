@@ -124,31 +124,31 @@ house = godthem256;
 
 
 % Questions 4-6
-figure(1)
-scales = [0.0001 1.0 4.0 16.0 64.0];
-for i = 1 : length(scales)
-    subplot(2, 3, i)
-    contour(Lvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
-    axis('image')
-    axis('ij')
-    title(sprintf('scale = %.4f', scales(i)))
-end
-
-figure(2)
-for i = 1 : length(scales)
-    subplot(2, 3, i)
-    showgrey(Lvvvtilde(discgaussfft(house, scales(i)), 'same') < 0)
-    axis('image')
-    axis('ij')
-    title(sprintf('scale = %.4f', scales(i)))
-end 
-
-figure(3)
-for i = 1 : length(scales)
-    subplot(2, 3, i)
-    showgrey(Lvvvtilde(discgaussfft(tools, scales(i)), 'same') < 0)
-    title(sprintf('scale = %.4f', scales(i)))
-end
+% figure(1)
+% scales = [0.0001 1.0 4.0 16.0 64.0];
+% for i = 1 : length(scales)
+%     subplot(2, 3, i)
+%     contour(Lvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
+%     axis('image')
+%     axis('ij')
+%     title(sprintf('scale = %.4f', scales(i)))
+% end
+% 
+% figure(2)
+% for i = 1 : length(scales)
+%     subplot(2, 3, i)
+%     showgrey(Lvvvtilde(discgaussfft(house, scales(i)), 'same') < 0)
+%     axis('image')
+%     axis('ij')
+%     title(sprintf('scale = %.4f', scales(i)))
+% end 
+% 
+% figure(3)
+% for i = 1 : length(scales)
+%     subplot(2, 3, i)
+%     showgrey(Lvvvtilde(discgaussfft(tools, scales(i)), 'same') < 0)
+%     title(sprintf('scale = %.4f', scales(i)))
+% end
 
 
 % Question 7
@@ -170,20 +170,20 @@ end
 
 
 % Questions 8-9
-% img = binsubsample(binsubsample(houghtest256));
-% scale = 1;
-% threshold = 100;
-% nlines = 7;
+% % img = binsubsample(binsubsample(houghtest256));
+% % scale = 1;
+% % threshold = 100;
+% % nlines = 7;
 % 
 % % img = houghtest256;
 % % scale = 1;
 % % threshold = 100;
 % % nlines = 7;
 % 
-% % img = few256;
-% % scale = 16;
-% % threshold = 100;
-% % nlines = 10;
+% img = few256;
+% scale = 16;
+% threshold = 100;
+% nlines = 10;
 % 
 % % img = phonecalc256;
 % % scale = 16;
@@ -200,3 +200,26 @@ end
 % verbose = 0;
 % 
 % [linepar, acc] = houghedgeline(img, scale, threshold, nrho, ntheta, nlines, verbose);
+
+
+% Question 9, computational time
+% nvals = [100 200 300 400 500 600 700 800 900 1000];
+% N = 3;
+% avg_times = zeros(1, length(nvals));
+% 
+% for i = 1:length(nvals)
+%     time = 0;
+%     nrho = nvals(i);
+%     ntheta = nvals(i);
+%     for j = 1:N
+%         tic
+%         houghedgeline(img, scale, threshold, nrho, ntheta, nlines, verbose);
+%         time = time + toc;
+%     end
+%     avg_times(i) = time/N;
+% end
+% 
+% plot(nvals, avg_times, '-o')
+% xlabel('value for nrho & ntheta')
+% ylabel('duration [s]')
+% title('Duration for nrho & ntheta values (nrho=ntheta)')

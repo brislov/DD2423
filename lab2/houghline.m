@@ -38,10 +38,6 @@ end
 [pos, value] = locmax8(acc) ;
 [dummy, indexvector] = sort(value);
 nmaxima = size(value, 1);
-% Delimit the number of responses if necessary
-% Compute a line for each one of the strongest responses in the accumulator
-% Overlay these curves on the posgradient magnitude image
-% Return the output data
 
 linepar = [];
 

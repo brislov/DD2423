@@ -26,7 +26,7 @@ while trypointer <= insize
                 rho_index = find(rhos < rho, 1, 'last');
                 
 %                 acc(rho_index, theta_index) = acc(rho_index, theta_index) + 1;
-                
+                % Question 10
                 acc(rho_index, theta_index) = acc(rho_index, theta_index) + magnitude(round(x), round(y));
             end
         end

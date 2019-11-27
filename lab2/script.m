@@ -124,31 +124,31 @@ house = godthem256;
 
 
 % Questions 4-6
-% figure(1)
-% scales = [0.0001 1.0 4.0 16.0 64.0];
-% for i = 1 : length(scales)
-%     subplot(2, 3, i)
-%     contour(Lvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
-%     axis('image')
-%     axis('ij')
-%     title(sprintf('scale = %.4f', scales(i)))
-% end
-% 
-% figure(2)
-% for i = 1 : length(scales)
-%     subplot(2, 3, i)
-%     showgrey(Lvvvtilde(discgaussfft(house, scales(i)), 'same') < 0)
-%     axis('image')
-%     axis('ij')
-%     title(sprintf('scale = %.4f', scales(i)))
-% end 
-% 
-% figure(3)
-% for i = 1 : length(scales)
-%     subplot(2, 3, i)
-%     showgrey(Lvvvtilde(discgaussfft(tools, scales(i)), 'same') < 0)
-%     title(sprintf('scale = %.4f', scales(i)))
-% end
+figure(1)
+scales = [0.0001 1.0 4.0 16.0 64.0];
+for i = 1 : length(scales)
+    subplot(2, 3, i)
+    contour(Lvvtilde(discgaussfft(house, scales(i)), 'same'), [0 0])
+    axis('image')
+    axis('ij')
+    title(sprintf('scale = %.4f', scales(i)))
+end
+
+figure(2)
+for i = 1 : length(scales)
+    subplot(2, 3, i)
+    showgrey(Lvvvtilde(discgaussfft(house, scales(i)), 'same') < 0)
+    axis('image')
+    axis('ij')
+    title(sprintf('scale = %.4f', scales(i)))
+end 
+
+figure(3)
+for i = 1 : length(scales)
+    subplot(2, 3, i)
+    showgrey(Lvvvtilde(discgaussfft(tools, scales(i)), 'same') < 0)
+    title(sprintf('scale = %.4f', scales(i)))
+end
 
 
 % Question 7
@@ -170,29 +170,33 @@ house = godthem256;
 
 
 % Questions 8-9
-
-% img = houghtest256;
+% img = binsubsample(binsubsample(houghtest256));
 % scale = 1;
 % threshold = 100;
 % nlines = 7;
-
-img = few256;
-scale = 16;
-threshold = 100;
-nlines = 10;
-
-% img = phonecalc256;
-% scale = 16;
-% threshold = 2*10^3;
-% nlines = 20;
-
-% img = godthem256;
-% scale = 4;
-% threshold = 2*10^3;
-% nlines = 30;
-
-nrho = 270;
-ntheta = 180;
-verbose = 0;
-
-[linepar, acc] = houghedgeline(img, scale, threshold, nrho, ntheta, nlines, verbose);
+% 
+% % img = houghtest256;
+% % scale = 1;
+% % threshold = 100;
+% % nlines = 7;
+% 
+% % img = few256;
+% % scale = 16;
+% % threshold = 100;
+% % nlines = 10;
+% 
+% % img = phonecalc256;
+% % scale = 16;
+% % threshold = 2*10^3;
+% % nlines = 20;
+% 
+% % img = godthem256;
+% % scale = 4;
+% % threshold = 2*10^3;
+% % nlines = 30;
+% 
+% nrho = 270;
+% ntheta = 180;
+% verbose = 0;
+% 
+% [linepar, acc] = houghedgeline(img, scale, threshold, nrho, ntheta, nlines, verbose);

@@ -101,28 +101,6 @@ house = godthem256;
 % end
 
 
-% Test masks on reference data (ask?)
-% [x, y] = meshgrid(-5:5, -5:5);
-% 
-% Dx = zeros(5);
-% Dy = zeros(5);
-% Dx(3, 2:4) = [-1/2 0 1/2];
-% Dy(2:4, 3) = [-1/2; 0; 1/2];
-% 
-% Dxx = zeros(5);
-% Dyy = zeros(5);
-% Dxx(3, 2:4) = [1 -2 1];
-% Dxy = filter2(Dx, Dy, 'valid');
-% Dyy(2:4, 3) = [1; -2; 1];
-% 
-% Dxxx = filter2(Dx, Dxx, 'valid');
-% Dxxy = filter2(Dxx, Dy, 'valid');
-% 
-% filter2(Dxxx, x.^3, 'valid')
-% filter2(Dxx, x.^3, 'valid')
-% filter2(Dxxy, x.^2.*y, 'valid')
-
-
 % Questions 4-6
 % figure(1)
 % scales = [0.0001 1.0 4.0 16.0 64.0];
@@ -170,20 +148,20 @@ house = godthem256;
 
 
 % Questions 8-9
-% % img = binsubsample(binsubsample(houghtest256));
-% % scale = 1;
-% % threshold = 100;
-% % nlines = 7;
+% img = binsubsample(binsubsample(houghtest256));
+% scale = 1;
+% threshold = 100;
+% nlines = 4;
 % 
 % % img = houghtest256;
 % % scale = 1;
 % % threshold = 100;
 % % nlines = 7;
 % 
-% img = few256;
-% scale = 16;
-% threshold = 100;
-% nlines = 10;
+% % img = few256;
+% % scale = 16;
+% % threshold = 100;
+% % nlines = 10;
 % 
 % % img = phonecalc256;
 % % scale = 16;

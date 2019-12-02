@@ -1,41 +1,42 @@
 function [segmentation, centers] = kmeans_segm(image, K, L, seed)
 
-% K         number of cluster centers
-% L         number of iterations
-% seed      for initializing randomization
-
-% To compute pair-wise differences there is a convenientMatlabfunction, 
-% pdist2, that can be used.
-
-% Let X be a set of pixels and V be a set of K cluster centers in 3D (R,G,B).
-
-
+% Reshapes image into a two dimensional matrix along the columns (improve
+% performance)
+[nrows, ncols] = size(image, 1, 2);
+image = double(reshape(image, [nrows*ncols 3]));
 
 % Randomly initialize the K cluster centers
-centers = zeros(K, 3);
-for k = 1:K
-    centers(k, 1:3) = unidrnd(255, 1, 3);
-end
-
+rng(seed);
+centers = randi([0 255], [K 3]);
 
 % Compute all distances between pixels and cluster centers
-% todo: improve this
-distances = zeros(K, size(image, 1), size(image, 2));
-for k = 1:K
-    for i = 1:size(image, 1)
-        for j = 1:size(image, 2)
-            pixel = image(i, j, :);
-            pixel = double(transpose(pixel(:)));
-            distances(k, i, j) = pdist2(centers(k, :), pixel);
-        end
+distances = pdist2(centers, image);
+
+segmentation = zeros(nrows*ncols, 1);
+
+% Iterate L times
+for l = 1:L
+    
+    % Assign each pixel to the cluster center for which the distance is minimum    
+    means = zeros(K, 3);
+    for i = 1:nrows*ncols
+        [~, k] = min(distances(:, i));
+        segmentation(i) = k;
+        
+        % Add RGB values to calculate the mean
+        means(k, :) = means(k, :) + image(i, :);
     end
+    
+    % Update cluster centers
+    for k = 1:K
+        centers(k, :) = means(k, :) / sum(segmentation == k);
+    end
+    
+    % Recompute all distances between pixels and cluster centers
+    distances = pdist2(centers, image);
+    
 end
 
-
-%  Iterate L times
-%     Assign each pixel to the cluster center for which the distance is minimum
-%     Recompute each cluster center by taking the mean of all pixels assigned to it
-%     Recompute all distances between pixels and cluster centers
-
-
-segmentation = 0; % remove
+% Reshapes back to old format
+segmentation = reshape(segmentation, [nrows ncols]);
+    

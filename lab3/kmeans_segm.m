@@ -43,12 +43,12 @@ distances = pdist2(centers, image);
 segmentation = zeros(nrows*ncols, 1);
 for l = 1:L
     % Assign each pixel to the cluster center for which the distance is minimum    
-    means = zeros(K, 3);
+    means = zeros(size(centers));
     for i = 1:nrows*ncols
         [~, k] = min(distances(:, i));
         segmentation(i) = k;
         
-        % Add RGB values to calculate the mean
+        % Sum RGB values to calculate the mean
         means(k, :) = means(k, :) + image(i, :);
     end
     

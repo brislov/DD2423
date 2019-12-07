@@ -1,16 +1,18 @@
 clear
 
-K = 4;               % number of clusters used
-L = 10;              % number of iterations
+n = 1;
+for n = [5];
+
+K = 5;               % number of clusters used
+L = 3;               % number of iterations
 seed = 14;           % seed used for random initialization
 scale_factor = 1.0;  % image downscale factor
-image_sigma = 1.0;   % image preblurring scale
+image_sigma = 10.0;   % image preblurring scale
 
 % I = imread('orange.jpg');
-% I = imread('tiger1.jpg');
+I = imread('tiger1.jpg');
 % I = imread('tiger2.jpg');
 % I = imread('tiger3.jpg');
-% I = imread('nissan.jpg');
 I = imresize(I, scale_factor);
 Iback = I;
 d = 2*ceil(image_sigma*2) + 1;
@@ -25,20 +27,16 @@ Iob = overlay_bounds(Iback, segm);
 imwrite(Inew,'result/kmeans1.png')
 imwrite(Iob,'result/kmeans2.png')
 
+
+
+% Question 2
 figure(1)
-subplot(131)
-imshow(I)
-subplot(132)
-imshow(Inew)
-subplot(133)
-imshow(Iob)
-
-figure(2)
+supt = suptitle(sprintf('K=%i, L=%i, seed=%i, scale=%.1f, sigma=%.1f', K, L, seed, scale_factor, image_sigma));
+set(supt, 'fontsize', 12)
 subplot(121)
-myscatter3(I, true)
+imshow(Inew)
 subplot(122)
-myscatter3(Inew, true)
-
-figure(3)
-myscatter3(I, true)
-set(gca,'visible','off')
+imshow(Iob)
+n = n + 1;
+waitforbuttonpress
+end

@@ -8,8 +8,8 @@ X = I(:, 1);
 Y = I(:, 2);
 Z = I(:, 3);
 
-S = 100;
+S = 200;
 C = I/255;
 
-scatter3(X, Y, Z, S, C)
+scatter3(X, Y, Z, S, C, '.')
 end

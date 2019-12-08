@@ -1,3 +1,6 @@
+clear
+
+
 scale_factor = 0.5;       % image downscale factor
 spatial_bandwidth = 8.0; % spatial bandwidth
 colour_bandwidth = 5.0;   % colour bandwidth

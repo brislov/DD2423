@@ -1,8 +1,13 @@
-function [segmentation, centers] = kmeans_segm(image, K, L, seed)
+function [segmentation, centers] = kmeans_segm(image, K, L, seed, rshapefmt)
 
 % Reshapes image into a two dimensional matrix for better performance
-[nrows, ncols] = size(image, 1, 2);
-image = double(reshape(image, [nrows*ncols 3]));
+if ~exist('rshapefmt','var')
+    [nrows, ncols] = size(image, 1, 2);
+    image = double(reshape(image, [nrows*ncols 3]));
+    N = nrows*ncols;
+else
+    N = length(image);
+end
 
 
 % Implementation k-means++ initialization as described on wikipedia:
@@ -10,7 +15,7 @@ image = double(reshape(image, [nrows*ncols 3]));
 % 1. Choose one center uniformly at random from among the data points.
 rng(seed);
 centers = zeros(K, 3);
-centers(1, :) = image(randi(nrows*ncols));
+centers(1, :) = image(randi(N));
 
 for k = 2:K
     % 2. For each data point x, compute D(x), the distance between x and 
@@ -40,11 +45,11 @@ end
 distances = pdist2(centers, image);
 
 % Iterate L times
-segmentation = zeros(nrows*ncols, 1);
+segmentation = zeros(N, 1);
 for l = 1:L
     % Assign each pixel to the cluster center for which the distance is minimum    
     means = zeros(size(centers));
-    for i = 1:nrows*ncols
+    for i = 1:N
         [~, k] = min(distances(:, i));
         segmentation(i) = k;
         
@@ -61,6 +66,8 @@ for l = 1:L
     distances = pdist2(centers, image);
 end
 
-% Reshapes back to old format
-segmentation = reshape(segmentation, [nrows ncols]);
+if ~exist('rshapefmt','var')
+    % Reshapes back to old format
+    segmentation = reshape(segmentation, [nrows ncols]);
+end
 end

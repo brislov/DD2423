@@ -30,18 +30,29 @@ for k = 1:K
 end
 
 
-prob = zeros(lengtH(Ivec));
+% ---
 
-g = 1 / sqrt((2*pi)^3
 
-% Iterate L times
-for l = 1:L
+P  = zeros(length(Ivec), K);
+
+% Expectation: Compute probabilities P_ik using masked pixels
+for i = 1:length(Ivec)
+    c_i = Ivec(i);
     
-    % Expectation: Compute probabilities P_ik using masked pixels
-    
-    
-    
+    for k = 1:K
+        
+        % denominator
+        d_sum = 0; 
+        for j = 1 :K
+            d_sum = d_sum + w(j) * 1/sqrt((2*pi)^3 * norm(cov{j})) * exp(-1/2*(c_i - mu(j)) * cov{j}^-1 * (c_i - mu(j)));
+        end
+        
+        P(i, k) = w(k) * 1/sqrt((2*pi)^3 * norm(cov{k})) * exp(-1/2*(c_i - mu(k)) * cov{k}^-1 * (c_i - mu(k))) ...
+            / d_sum;
+    end 
 end
 
 
 bp
+
+% f[x_]:= k*x + m

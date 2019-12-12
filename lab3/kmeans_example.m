@@ -1,6 +1,6 @@
 clear
 
-% % Question 1
+% Question 1
 % K = 8;               % number of clusters used
 % L = 10;              % number of iterations
 % seed = 14;           % seed used for random initialization
@@ -52,17 +52,17 @@ I = imfilter(I, h);
 % myscatter3(Inew, true)
 
 
-% % Question 2
-% figure(2)
-% L = [1 10];
-% for n = 1:length(L)
-%     [Inew, ~] = foo(I, K, L(n), seed);
-%     subplot(1, length(L), n)
-%     imshow(Inew)
-%     title(sprintf('L=%i', L(n)))
-% end
-% h = suptitle(sprintf('K=%i, seed=%i, scale=%.1f, sigma=%.1f', K, seed, scale_factor, image_sigma));
-% set(h, 'FontSize', 12)
+% Question 2
+figure(2)
+L = [1 10];
+for n = 1:length(L)
+    [Inew, ~] = foo(I, K, L(n), seed);
+    subplot(1, length(L), n)
+    imshow(Inew)
+    title(sprintf('L=%i', L(n)))
+end
+h = suptitle(sprintf('K=%i, seed=%i, scale=%.1f, sigma=%.1f', K, seed, scale_factor, image_sigma));
+set(h, 'FontSize', 12)
 
 
 % % Question 3

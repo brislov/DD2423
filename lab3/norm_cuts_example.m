@@ -10,23 +10,23 @@ clear
 % scale_factor = 0.4;      % image downscale factor
 % image_sigma = 2.0;       % image preblurring scale
 
-% I = imread('tiger1.jpg');
-% colour_bandwidth = 16.0;
-% radius = 7;
-% ncuts_thresh = 0.040;
-% min_area = 105; 
-% max_depth = 10;          
-% scale_factor = 0.4;      
-% image_sigma = 2.1;
-
-I = imread('tiger2.jpg');
-colour_bandwidth = 8.0;
-radius = 4;
-ncuts_thresh = 0.04;
-min_area = 100; 
-max_depth = 8;          
+I = imread('tiger1.jpg');
+colour_bandwidth = 16.0;
+radius = 7;
+ncuts_thresh = 0.040;
+min_area = 105; 
+max_depth = 10;          
 scale_factor = 0.4;      
-image_sigma = 2.0;
+image_sigma = 2.1;
+
+% I = imread('tiger2.jpg');
+% colour_bandwidth = 8.0;
+% radius = 4;
+% ncuts_thresh = 0.04;
+% min_area = 100; 
+% max_depth = 8;          
+% scale_factor = 0.4;      
+% image_sigma = 2.0;
 
 
 I = imresize(I, scale_factor);

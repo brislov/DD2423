@@ -20,16 +20,14 @@ cov(:) = {eye(3)*10}; % use random number instead of 10?
 
 % 3. Iterate L times
 wg = zeros(length(Imsk), K);
-prob = zeros(length(Imsk), K);
 for l = 1:L
 
+    
     % 4. Expectation: Compute probabilities P_ik using masked pixels
     for k = 1:K
         wg(:, k) = w(k) * mvnpdf(Imsk, centers(k, :), cov{k});
     end
-    for k = 1:K
-        prob(:, k) = wg(:, k) ./ sum(wg, 2);
-    end
+    prob = wg ./ sum(wg, 2);
     
     
     % 5. Maximization: Update weights, means and covariances using masked pixels
@@ -51,6 +49,7 @@ for k = 1:K
     wg(:, k) = w(k) * mvnpdf(Ivec, centers(k, :), cov{k});
 end
 prob = sum(wg, 2);
+
 
 prob = reshape(prob, height, width, 1);
 end
